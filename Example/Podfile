@@ -1,0 +1,40 @@
+use_frameworks!
+
+
+source 'https://github.com/iOSModularization/AHFMSpecs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+
+
+target 'AHFMBottomPlayer_Example' do
+  pod 'AHFMBottomPlayer', :path => '../'
+  pod 'AHServiceRouter'
+  
+  pod 'AHFMDataCenter'
+  pod 'AHFMNetworking'
+  pod 'AHFMDataTransformers'
+  
+  pod 'AHFMServices'
+  pod 'AHFMModuleManager'
+  
+  pod 'AHFMAudioPlayerVC'
+  pod 'AHFMAudioPlayerVCServices'
+  pod 'AHFMAudioPlayerVCManager'
+  
+  pod 'AHFMEpisodeListVC'
+  pod 'AHFMEpisodeListVCServices'
+  pod 'AHFMEpisodeListVCManager'
+  
+  
+  pod 'AHFMAudioPlayerManager'
+  
+  pod 'AHFMBottomPlayerManager'
+  
+  #pod 'AHFMHistoryVC'
+  
+  target 'AHFMBottomPlayer_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
