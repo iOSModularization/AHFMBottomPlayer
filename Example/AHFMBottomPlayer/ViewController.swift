@@ -38,37 +38,42 @@ class ViewController: UIViewController {
         AHFMBottomPlayerManager.activate()
         
         
-        if let ep = AHFMEpisode.query(byPrimaryKey: 22700), let epInfo = AHFMEpisodeInfo.query(byPrimaryKey: 22700) {
-            var url: URL?
-            
-            if epInfo.localFilePath != nil {
-                url = URL(fileURLWithPath: epInfo.localFilePath!)
-            }else{
-                url = URL(string: ep.audioURL!)
-            }
-            var toTime: TimeInterval? = nil
-            if let lastPlayedTime = epInfo.lastPlayedTime{
-                toTime = lastPlayedTime
-            }
-            AHAudioPlayerManager.shared.play(trackId: ep.id, trackURL: url!, toTime: toTime)
-        }else{
-            networking.episode(byEpisodeId: 22700) { (data, _) in
-                if let data = data {
-                    let jsonEpisode = JSON(data)
-                    if let episodeDict = AHFMEpisodeTransform.jsonToEpisode(jsonEpisode) {
-                        let ep = AHFMEpisode(with: episodeDict)
-                        self.ep = ep
-                        let url = URL(string: ep.audioURL!)
-                        AHAudioPlayerManager.shared.play(trackId: ep.id, trackURL: url!)
-                    }
-                }
-            }
-        }
+//        if let ep = AHFMEpisode.query(byPrimaryKey: 22700), let epInfo = AHFMEpisodeInfo.query(byPrimaryKey: 22700) {
+//            var url: URL?
+//            
+//            if epInfo.localFilePath != nil {
+//                url = URL(fileURLWithPath: epInfo.localFilePath!)
+//            }else{
+//                url = URL(string: ep.audioURL!)
+//            }
+//            var toTime: TimeInterval? = nil
+//            if let lastPlayedTime = epInfo.lastPlayedTime{
+//                toTime = lastPlayedTime
+//            }
+//            AHAudioPlayerManager.shared.play(trackId: ep.id, trackURL: url!, toTime: toTime)
+//        }else{
+//            networking.episode(byEpisodeId: 22700) { (data, _) in
+//                if let data = data {
+//                    let jsonEpisode = JSON(data)
+//                    if let episodeDict = AHFMEpisodeTransform.jsonToEpisode(jsonEpisode) {
+//                        let ep = AHFMEpisode(with: episodeDict)
+//                        self.ep = ep
+//                        let url = URL(string: ep.audioURL!)
+//                        AHAudioPlayerManager.shared.play(trackId: ep.id, trackURL: url!)
+//                    }
+//                }
+//            }
+//        }
         
         
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { 
+//            let dict: [String: Any] = [AHFMBottomPlayerServices.keyShowPlayer: true, AHFMBottomPlayerServices.keyParentVC: self]
+//            AHServiceRouter.doTask(AHFMBottomPlayerServices.service, taskName: AHFMBottomPlayerServices.taskDisplayPlayer, userInfo: dict, completion: nil)
+//        }
+        
         let dict: [String: Any] = [AHFMBottomPlayerServices.keyShowPlayer: true, AHFMBottomPlayerServices.keyParentVC: self]
         AHServiceRouter.doTask(AHFMBottomPlayerServices.service, taskName: AHFMBottomPlayerServices.taskDisplayPlayer, userInfo: dict, completion: nil)
     }

@@ -158,6 +158,10 @@ extension AHFMBottomPlayer {
         self.show = Show(data)
         self.shouldUpdateTimer = false
         updateProgress()
+        
+        if AHAudioPlayerManager.shared.state == .playing {
+            fireTimer()
+        }
     }
     
     // parameter = [String:Any]
@@ -188,6 +192,14 @@ extension AHFMBottomPlayer {
         self.episode = Episode(epDict)
         self.shouldUpdateTimer = false
         updateProgress()
+        
+        if AHAudioPlayerManager.shared.state == .playing {
+            self.playBtn.isSelected = true
+            fireTimer()
+        }else{
+            self.playBtn.isSelected = false
+        }
+        
     }
 }
 
